@@ -31,7 +31,7 @@ public class CustomRoleProviderImplTest {
 	public String getAccessToken() {
 		assertTrue(KEYCLOAK.isRunning());
 		String authServerUrl = KEYCLOAK.getAuthServerUrl();
-		System.out.println("auth server url: " + authServerUrl);
+		log.info("auth server url: " + authServerUrl);
 
 		String accessToken = given().contentType(ContentType.URLENC)
 				.formParams(Map.of("username", "naz", "password", "123", "grant_type", "password", "client_id",
@@ -39,14 +39,14 @@ public class CustomRoleProviderImplTest {
 				.post(authServerUrl + realmUri + "/protocol/openid-connect/token").then().assertThat().statusCode(200)
 				.extract().path("access_token");
 
-		System.out.println("access token: " + accessToken);
+		log.info("access token: " + accessToken);
 		return accessToken;
 	}
 //	@Test
 	public void testKc() {
 		assertTrue(KEYCLOAK.isRunning());
 		String authServerUrl = KEYCLOAK.getAuthServerUrl();
-		System.out.println("auth server url: " + authServerUrl);
+		log.info("auth server url: " + authServerUrl);
 
 		String accessToken = given().contentType(ContentType.URLENC)
 				.formParams(Map.of("username", "naz", "password", "123", "grant_type", "password", "client_id",
@@ -54,7 +54,7 @@ public class CustomRoleProviderImplTest {
 				.post(authServerUrl + realmUri + "/protocol/openid-connect/token").then().assertThat().statusCode(200)
 				.extract().path("access_token");
 
-		System.out.println("access token: " + accessToken);
+		log.info("access token: " + accessToken);
 
 	}
 
@@ -63,11 +63,11 @@ public class CustomRoleProviderImplTest {
 		assertTrue(KEYCLOAK.isRunning());
 		String authServerUrl = KEYCLOAK.getAuthServerUrl();
 
-		System.out.println("auth url: " + authServerUrl);
+		log.info("auth url: " + authServerUrl);
 		String fullUrl = authServerUrl + realmUri + "/" + CustomRoleResourceProviderFactory.COMPOSITE_ROLE_RESOURCE
 				+ "/hello";
 
-		System.out.println("full url: " + fullUrl);
+		log.info("full url: " + fullUrl);
 
 		String result = given()
 			.get(fullUrl)
@@ -81,9 +81,9 @@ public class CustomRoleProviderImplTest {
 ////			.body("hello", is("test"))
 //		;
 
-		System.out.println("resultttttttttttttttt: " + result);
-		System.out.println("Keycloak container logsssssssssssssss:");
-		System.out.println(KEYCLOAK.getLogs());
+		log.info("resultttttttttttttttt: " + result);
+		log.info("Keycloak container logsssssssssssssss:");
+		log.info(KEYCLOAK.getLogs());
 	}
 	
 //	@Test
@@ -91,11 +91,11 @@ public class CustomRoleProviderImplTest {
 		assertTrue(KEYCLOAK.isRunning());
 		String authServerUrl = KEYCLOAK.getAuthServerUrl();
 
-		System.out.println("auth url: " + authServerUrl);
+		log.info("auth url: " + authServerUrl);
 		String fullUrl = authServerUrl + realmUri + "/" + CustomRoleResourceProviderFactory.COMPOSITE_ROLE_RESOURCE
 				+ "/composite-with-assigned-roles";
 
-		System.out.println("full url: " + fullUrl);
+		log.info("full url: " + fullUrl);
 
 //		String result = given()
 //			.get(fullUrl)
@@ -118,9 +118,9 @@ public class CustomRoleProviderImplTest {
 				.statusCode(401);
 //		;
 
-//		System.out.println("resultttttttttttttttt: " + result);
-		System.out.println("Keycloak container logsssssssssssssss:");
-		System.out.println(KEYCLOAK.getLogs());
+//		log.info("resultttttttttttttttt: " + result);
+		log.info("Keycloak container logsssssssssssssss:");
+		log.info(KEYCLOAK.getLogs());
 	}
 	
 	@Test
@@ -128,11 +128,11 @@ public class CustomRoleProviderImplTest {
 		assertTrue(KEYCLOAK.isRunning());
 		String authServerUrl = KEYCLOAK.getAuthServerUrl();
 
-		System.out.println("auth url: " + authServerUrl);
+		log.info("auth url: " + authServerUrl);
 		String fullUrl = authServerUrl + realmUri + "/" + CustomRoleResourceProviderFactory.COMPOSITE_ROLE_RESOURCE
 				+ "/composite-with-assigned-roles";
 
-		System.out.println("full url: " + fullUrl);
+		log.info("full url: " + fullUrl);
 
 //		String accessToken = KEYCLOAK.getKeycloakAdminClient().tokenManager().getAccessToken().getToken();
 		String accessToken = getAccessToken();
@@ -161,15 +161,15 @@ public class CustomRoleProviderImplTest {
 			.extract().asPrettyString();
 //		;
 
-		System.out.println("resultttttttttttttttt: " + asPrettyString);
-		System.out.println("Keycloak container logsssssssssssssss:");
-		System.out.println(KEYCLOAK.getLogs());
+		log.info("resultttttttttttttttt: " + asPrettyString);
+		log.info("Keycloak container logsssssssssssssss:");
+		log.info(KEYCLOAK.getLogs());
 	}
 
 	private RequestSpecification givenSpec() {
 		String fullUrl = realmUri + "/" + CustomRoleResourceProviderFactory.COMPOSITE_ROLE_RESOURCE;
 
-		System.out.println("full url: " + fullUrl);
+		log.info("full url: " + fullUrl);
 		return given().baseUri(KEYCLOAK.getAuthServerUrl()).basePath(fullUrl);
 	}
 }
